@@ -26,17 +26,28 @@ var localStrategy = new localStrategy({
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
-            if (user['user_password'] !== password ){
+            if (user.user_password !== password){
                 return done(null, false, { message: 'Incorrect password.' });
             }
             return done(null, user);
         });
     }
   );
-router.post('/authenticate',Passport.authenticate( 'local', { session: false } ),
-  function( req, res ) {
+router.post('/authenticate',
+  function( req, res ,next) {
+
+
+    Passport.authenticate( 'local', function(err,user,info){
+      if(err){ return next(err);}
+      if(!user){ 
+        res.json({ SERVER_RESPONSE: 0 , SERVER_MESSAGE: "Logged falid!" });
+      }else if(user){
+        res.json({ SERVER_RESPONSE: 1, SERVER_MESSAGE: "Logged in!" });
+      }
+
+    })(req,res,next);
   	console.log('post start');
-    res.json({ SERVER_RESPONSE: 1, SERVER_MESSAGE: "Logged in!" });
+    //res.json({ SERVER_RESPONSE: 1, SERVER_MESSAGE: "Logged in!" });
     
 
     
