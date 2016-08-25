@@ -11,10 +11,14 @@ const bodyParser = require('body-parser');
 const Passport = require('passport');
 
 var mongo = require('mongodb');
+var mongoose = require('mongoose');
+
+mongoose.connect('localhost:27017/pundoServer');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var passport = require('./routes/passport');
+var dataRouter = require('./routes/dataRouter');
 
 
 const app = express();
@@ -42,8 +46,8 @@ app.use( Passport.initialize() );
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/passport', passport);
-
+app.use('/passport', passport).mongoose;
+app.use('/dataRouter', dataRouter).mongoose;
 
 
 

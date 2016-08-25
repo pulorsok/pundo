@@ -1,10 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/pundoServer');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
-  console.log("Database Connected.");
-});
+// mongoose.connect('localhost:27017/pundoServer');
+
 
 var userSchema = mongoose.Schema({
 	_id: Object,
@@ -14,8 +10,8 @@ var userSchema = mongoose.Schema({
 	tag: Array,
 	sensor_count: Number,
 	tag_count: Number
-
 },{collection: "user"});
+
 
 userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
