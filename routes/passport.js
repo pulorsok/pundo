@@ -37,15 +37,16 @@ var localStrategy = new localStrategy({
   );
 router.post('/authenticate',
   function( req, res ,next) {
-
+    console.log("test Request" + req.query.username);
 
     Passport.authenticate( 'local', function(err,user,info){
       if(err){ return next(err);}
       if(!user){ 
         console.log("log falid!");
-        res.json({ SERVER_RESPONSE: 0 , SERVER_MESSAGE: "Logged falid!" });
+        res.json({ SERVER_RESPONSE: 0 , SERVER_MESSAGE: "Logged falid!",userName: user.user_name });
       }else if(user){
-        res.json({ SERVER_RESPONSE: 1, SERVER_MESSAGE: "Logged in!" });
+        res.json({ SERVER_RESPONSE: 1, SERVER_MESSAGE: "Logged in!" ,userName: user.user_name});
+        console.log(user);
       }
 
     })(req,res,next);
