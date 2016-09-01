@@ -2,9 +2,13 @@ var Express = require( 'express' );
 var router = Express.Router();
 var request = require('request');
 var mongoose = require('mongoose');
-
-// mongoose.connect('localhost:27017/pundoServer');
-
+mongoose.connect('mongodb://pulorsok:pock84831@163.18.44.130:27017/pundoServer')
+// mongoose.connect('lomongoose.connect('mongodb://pulorsok:pock84831@163.18.44.130:27017/test')calhost:27017/pundoServer');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("Database Connected.");
+});
 
 
 var userSchema = mongoose.Schema({
@@ -66,8 +70,9 @@ function makeSensorTagRelationJson(sensorName,callback){
 router.get('/', function(req, res){
   
 
-  userModel.findOne({user_name: req.query.user},function(err,docs){
-    res.json({sensor: docs.sensor, tag: docs.tag});
+  userModel.findOne({user_name: "admin"},function(err,docs){
+    // res.json({sensor: docs.sensor, tag: docs.tag});
+    res.send(docs);
   })
  
 });

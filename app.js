@@ -13,7 +13,13 @@ const Passport = require('passport');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('localhost:27017/pundoServer');
+mongoose.connect('mongodb://pulorsok:pock84831@163.18.44.130:27017/pundoServer')
+// mongoose.connect('lomongoose.connect('mongodb://pulorsok:pock84831@163.18.44.130:27017/test')calhost:27017/pundoServer');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("Database Connected.");
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
