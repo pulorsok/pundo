@@ -50,7 +50,7 @@ app.use( Passport.initialize() );
 //     next();
 // });
 
-app.use('/', routes);
+app.use('/', routes).bodyParser;
 app.use('/users', users);
 app.use('/passport', passport).mongoose;
 app.use('/dataRouter', dataRouter).bodyParser;

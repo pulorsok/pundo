@@ -2,14 +2,15 @@ var mongoose = require('mongoose');
 //mongoose.connect('localhost:27017/pundoServer');
 
 
+
 var userSchema = mongoose.Schema({
-	_id: Object,
-	user_name: String,
-	user_password: String,
-	sensor: Array,
-	tag: Array,
-	sensor_count: Number,
-	tag_count: Number
+  _id: Object,
+  user_name: String,
+  user_password: String,
+  sensor: Array,
+  tag: Array,
+  sensor_count: Number,
+  tag_count: Number
 },{collection: "user"});
 
 

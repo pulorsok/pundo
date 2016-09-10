@@ -19,13 +19,22 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
+var count = 0;
 var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
- */var io = require('socket.io')(server);
+ */
+ var io = require('socket.io')(server);
 
+function parseBuffer(buffer,callback){
+    var tagId = null;
+        for (var i = 0 ; i < buffer.length; i++) {
+          tagId = tagId + (buffer[i]-48).toString;
+        }
+        
+    callback(tagId);
+}
 io.on("connection", function (socket) {  
     var tweet = {user: "nodesource", text: "Hello, world!"};
 
@@ -39,8 +48,11 @@ io.on("connection", function (socket) {
     });
     socket.on("tweet", function (tweet) {
         // we received a tweet from the browser
-    
-        console.log("tweet from", tweet);
+        parseBuffer(tweet,function(data){
+          console.log("tweet from ", data);
+        })
+       //console.log(tweet[0]); 
+       //console.log(tweet);
 
     });
 });
